@@ -5,26 +5,34 @@ const status = document.getElementById('status');
  
 let allUsers = [];
  
-button.addEventListener('click', () => {
-    status.innerText = 'Loading...';
- 
-    fetch('users.json')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Could not load users.json');
-            }
-            return response.json();
-        })
-        .then(users => {
-            allUsers = users;
-            status.innerText = 'Loaded ' + users.length + ' users!';
-            searchInput.style.display = 'inline';
-            renderCards(users);
-        })
-        .catch(error => {
-            status.innerText = 'Error: ' + error.message;
-        });
-});
+// Extracted the async function outside the listener to keep code clean and readable
+async function fetchUsers() {
+    try {
+        status.innerText = 'Loading...';
+        
+        const response = await fetch('https://jsonplaceholder.typicode.com/users');
+        
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        // Save the parsed data to your global variable
+        allUsers = await response.json();
+        
+        // Render the freshly fetched users to the DOM
+        renderCards(allUsers);
+        
+        // Clear the status text upon success
+        status.innerText = ''; 
+        
+    } catch (error) {
+        console.error('Failed to acquire user data:', error);
+        status.innerText = 'Failed to load users. Please try again.';
+    }
+}
+
+// Trigger the network fetch on click
+button.addEventListener('click', fetchUsers);
  
 searchInput.addEventListener('input', function() {
     const query = this.value.toLowerCase();
@@ -36,10 +44,15 @@ searchInput.addEventListener('input', function() {
  
 function renderCards(users) {
     container.innerHTML = '';
+    
+    // Fallback if no users match the filter query
+    if (users.length === 0) {
+        container.innerHTML = '<p class="no-results">No users found</p>';
+        return;
+    }
  
     users.forEach(user => {
         const card = document.createElement('div');
-    
         card.className = 'user-card'; 
  
         const email = user.email || 'No email';
@@ -53,7 +66,7 @@ function renderCards(users) {
             <p><strong>Phone:</strong> ${phone}</p>
             <p><strong>Company:</strong> ${company}</p>
             <p><strong>City:</strong> ${city}</p>
-        `; // Note: Removed <hr> since the card border handles separation perfectly now!
+        `;
         
         container.appendChild(card);
     });

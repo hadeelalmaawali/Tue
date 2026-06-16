@@ -1,5 +1,4 @@
 body {
-    background-color: #f1f5f9; /* Soft light gray background */
     font-family: Arial, sans-serif;
     padding: 20px;
     margin: 0;
@@ -12,7 +11,7 @@ body {
     margin-top: 25px;
 }
 
-/* This styles the individual user cards precisely like your reference image */
+
 .user-card {
     background: #ffffff;
     border: 1px solid #e2e8f0;
@@ -21,7 +20,7 @@ body {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.04);
 }
 
-/* Styles the User Name text header inside each card */
+
 .user-card h3 {
     margin-top: 0;
     margin-bottom: 12px;
@@ -29,7 +28,7 @@ body {
     font-size: 1.2rem;
 }
 
-/* Styles the individual paragraph details lines */
+
 .user-card p {
     margin: 6px 0;
     color: #4a5568;
