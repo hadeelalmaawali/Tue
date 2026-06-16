@@ -5,7 +5,7 @@ const status = document.getElementById('status');
  
 let allUsers = [];
  
-// Extracted the async function outside the listener to keep code clean and readable
+
 async function fetchUsers() {
     try {
         status.innerText = 'Loading...';
@@ -16,13 +16,12 @@ async function fetchUsers() {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
         
-        // Save the parsed data to your global variable
-        allUsers = await response.json();
         
-        // Render the freshly fetched users to the DOM
+        allUsers = await response.json();
+      
         renderCards(allUsers);
         
-        // Clear the status text upon success
+   
         status.innerText = ''; 
         
     } catch (error) {
@@ -31,7 +30,6 @@ async function fetchUsers() {
     }
 }
 
-// Trigger the network fetch on click
 button.addEventListener('click', fetchUsers);
  
 searchInput.addEventListener('input', function() {
@@ -45,7 +43,7 @@ searchInput.addEventListener('input', function() {
 function renderCards(users) {
     container.innerHTML = '';
     
-    // Fallback if no users match the filter query
+
     if (users.length === 0) {
         container.innerHTML = '<p class="no-results">No users found</p>';
         return;
