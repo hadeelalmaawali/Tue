@@ -1,0 +1,60 @@
+
+[
+  {
+    "id": 1,
+    "name": "Hadil",
+    "username": "almaawali",
+    "email": "almaawali@april.biz",
+    "phone": "1-770-736-8031",
+    "website": "hildegard.org",
+    "company": {
+      "name": "Romaguera-Crona"
+    },
+    "address": {
+      "city": "Gwenborough"
+    }
+  },
+
+  {
+    "id": 2,
+    "name": "Tuqa",
+    "username": "alhosni",
+    "email": "alhosni@yesenia.net",
+    "phone": "1-463-123-4447",
+    "website": "ramiro.info",
+    "company": {
+      "name": "Romaguera-Jacobson"
+    },
+    "address": {
+      "city": "McKenziehaven"
+    }
+  },
+  {
+    "id": 3,
+    "name": "Rehab",
+    "username": "AL Nairi",
+    "email": "alairi@kory.org",
+    "phone": "493-170-9623",
+    "website": "kale.biz",
+    "company": {
+      "name": "Robel-Corkery"
+    },
+    "address": {
+      "city": "South Elvis"
+    }
+  },
+  {
+    "id": 4,
+    "name": "Lara",
+    "username": "alharthi",
+    "email": "alharthi@annie.ca",
+    "phone": "254-954-1289",
+    "website": "demarco.info",
+    "company": {
+      "name": "Keebler LLC"
+    },
+    "address": {
+      "city": "Roscoeview"
+    }
+  }
+]
