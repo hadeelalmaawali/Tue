@@ -1,69 +1,66 @@
+
 const button = document.getElementById('load-btn');
 const container = document.getElementById('user-container');
 const searchInput = document.getElementById('search-input');
 const status = document.getElementById('status');
  
-let allUsers = [];
- 
+let allPosts = [];
 
-async function fetchUsers() {
+async function fetchPosts() {
     try {
         status.innerText = 'Loading...';
         
-        const response = await fetch('https://jsonplaceholder.typicode.com/users');
+        const response = await fetch('https://jsonplaceholder.typicode.com/posts');
         
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
         
-        
-        allUsers = await response.json();
+        allPosts = await response.json();
       
-        renderCards(allUsers);
+        renderCards(allPosts);
         
-   
-        status.innerText = ''; 
+        searchInput.style.display = 'inline-block';
+        status.innerText = 'Posts loaded successfully!'; 
         
     } catch (error) {
-        console.error('Failed to acquire user data:', error);
-        status.innerText = 'Failed to load users. Please try again.';
+        console.error('Failed to acquire post data:', error);
+        status.innerText = 'An error occurred while fetching posts.';
     }
 }
 
-button.addEventListener('click', fetchUsers);
+button.addEventListener('click', fetchPosts);
  
 searchInput.addEventListener('input', function() {
-    const query = this.value.toLowerCase();
-    const filtered = allUsers.filter(user =>
-        user.name.toLowerCase().includes(query)
+    const query = this.value.toLowerCase().trim();
+    const filtered = allPosts.filter(post =>
+        post.title.toLowerCase().includes(query)
     );
     renderCards(filtered);
 });
  
-function renderCards(users) {
+function renderCards(posts) {
     container.innerHTML = '';
-    
 
-    if (users.length === 0) {
-        container.innerHTML = '<p class="no-results">No users found</p>';
+    if (posts.length === 0) {
+        container.innerHTML = '<p class="no-results">No posts found.</p>';
         return;
     }
  
-    users.forEach(user => {
+    posts.forEach(post => {
         const card = document.createElement('div');
         card.className = 'user-card'; 
  
-        const email = user.email || 'No email';
-        const company = (user.company && user.company.name) ? user.company.name : 'No company';
-        const phone = user.phone || 'No phone';
-        const city = (user.address && user.address.city) ? user.address.city : 'No city';
+
+        let shortBody = post.body;
+        if (shortBody.length > 100) {
+            shortBody = shortBody.substring(0, 100) + "...";
+        }
  
         card.innerHTML = `
-            <h3>${user.name}</h3>
-            <p><strong>Email:</strong> ${email}</p>
-            <p><strong>Phone:</strong> ${phone}</p>
-            <p><strong>Company:</strong> ${company}</p>
-            <p><strong>City:</strong> ${city}</p>
+            <p><strong>Post ID:</strong> ${post.id}</p>
+            <h3>${post.title}</h3>
+            <p>${shortBody}</p>
         `;
         
         container.appendChild(card);
